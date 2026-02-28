@@ -65,14 +65,8 @@ jobs:
           echo "Scan mode: $SCAN_MODE"
 
           if [ "$SCAN_MODE" = "incremental" ]; then
-            FILES=$(grep -E "\.(py|js|java|go)$" changed.txt | tr '\n' ' ')
-
-            if [ -z "$FILES" ]; then
-              echo "No relevant source files changed."
-              echo '{"version":"2.1.0","runs":[]}' > semgrep-results.sarif
-            else
-              semgrep scan -q --sarif --config auto $FILES > semgrep-results.sarif
-            fi
+            FILES= changed.txt
+            semgrep scan -q --sarif --config auto $FILES > semgrep-results.sarif
           else
             semgrep scan -q --sarif --config auto . > semgrep-results.sarif
           fi
