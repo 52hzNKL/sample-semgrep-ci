@@ -11,7 +11,7 @@ The provided GitHub Actions workflow demonstrates how to:
 - Upload the SARIF file as an artifact.
 - Utilize the GitHub `upload-sarif` action to display scan findings in the GitHub Security tab.
 
-## Contents
+##  Contents
 
 - `.github/workflows/`: Contains the workflow YAML file.
 - `vulnerable-source-code/`: Placeholder directory representing the codebase for scanning.
