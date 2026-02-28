@@ -38,6 +38,8 @@ jobs:
       - name: Determine scan mode
         id: decision
         run: |
+          # Fix safe directory issue
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           # Push lên main → full
           if [ "${{ github.event_name }}" = "push" ]; then
             echo "SCAN_MODE=full" >> $GITHUB_ENV
