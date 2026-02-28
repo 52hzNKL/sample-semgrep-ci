@@ -69,7 +69,7 @@ jobs:
 
             if [ -z "$FILES" ]; then
               echo "No relevant source files changed."
-              echo "{"version":"2.1.0","runs":[]}" > semgrep-results.sarif
+              echo '{"version":"2.1.0","runs":[]}' > semgrep-results.sarif
             else
               semgrep scan -q --sarif --config auto $FILES > semgrep-results.sarif
             fi
