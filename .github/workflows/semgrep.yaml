@@ -1,3 +1,6 @@
+permissions:
+  contents: read
+  security-events: write
 # Name of this GitHub Actions workflow.
 name: Semgrep
 
