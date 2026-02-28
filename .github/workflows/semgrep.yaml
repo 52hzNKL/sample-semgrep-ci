@@ -39,24 +39,22 @@ jobs:
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-          echo "Event: ${{ github.event_name }}"
-
           # Fetch đầy đủ history
           git fetch --all --prune
 
           # Nếu là PR → diff với base branch
           if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch origin ${{ github.base_ref }}
             git diff --name-only origin/${{ github.base_ref }}...HEAD > changed.txt
           else
             # Nếu là push → diff commit trước
-            git diff --name-only HEAD~1 HEAD > changed.txt
+            git diff --name-only ${{ github.event.before }} ${{ github.sha }} > changed.txt
           fi
     
           echo "Changed files:"
           cat changed.txt
 
           echo "SCAN_MODE=incremental" >> $GITHUB_ENV
-          fi
 
       - name: Perform Semgrep Analysis
       # @NOTE: This is the actual semgrep command to scan your code.
