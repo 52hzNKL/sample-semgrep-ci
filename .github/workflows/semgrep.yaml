@@ -50,11 +50,6 @@ jobs:
             # Nếu là push → diff commit trước
             git diff --name-only ${{ github.event.before }} ${{ github.sha }} > changed.txt
           fi
-    
-          echo "Changed files:"
-          cat changed.txt
-
-          echo "SCAN_MODE=incremental" >> $GITHUB_ENV
 
       - name: Perform Semgrep Analysis
       # @NOTE: This is the actual semgrep command to scan your code.
@@ -62,7 +57,6 @@ jobs:
       # or use multiple flags to specify particular rules, such as
       # --config r/all --config custom/rules
         run: |
-          echo "Scan mode: $SCAN_MODE"
 
           if [ "$SCAN_MODE" = "incremental" ]; then
             FILES=$(tr '\n' ' ' < changed.txt)
